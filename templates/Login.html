@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="STAR.png">
+    <title>...LOGIN...</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-login.css') }}">
+</head>
+<body>
+    <center>
+        <div class="conta">
+            <form method="POST" action="{{ url_for('login') }}">
+                <h1>WELCOME</h1>
+                <label>Username</label>
+                <br>
+                <input type="text" name="username">
+                <br>
+                <label>Password</label>
+                <br>
+                <input type="password" name="password">
+                <br>
+                <button type="submit">LOGIN</button>
+                <p>Belum memiliki akun? <a href="{{ url_for('register') }}">Register</a></p>
+            </form>
+        </div>
+    </center>
+</body>
+</html>

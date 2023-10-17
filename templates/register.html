@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="STAR.png">
+    <title>..REGISTER..</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-login.css') }}">
+</head>
+<body>
+    <center>
+        <div class="conta">
+            <form method="POST">
+                <h1>REGISTER</h1>
+                <label>Username</label>
+                <br>
+                <input type="text" name="username" required>
+                <br>
+                <label>Email</label>
+                <br>
+                <input type="email" name="email" required> <!-- Tambahkan input email -->
+                <br>
+                <label>Password</label>
+                <br>
+                <input type="password" name="password" required>
+                <br>
+                <button type="submit">REGISTER</button>
+            </form>
+            <!-- Tautan ke halaman login -->
+            <p>Sudah memiliki akun? <a href="{{ url_for('home') }}">Login disini</a></p>
+        </div>
+    </center>
+</body>
+</html>
