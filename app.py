@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Ganti 'your_secret_key' dengan secret key yang kuat
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,9 +14,14 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
+
 @app.route('/')
 def home():
     return render_template('login.html')
+
+@app.route('/play_snake')
+def play_snake():
+    return render_template('snake.html')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -53,6 +60,10 @@ def register():
             return redirect(url_for('home'))  # Mengarahkan ke halaman login setelah pendaftaran berhasil
 
     return render_template('register.html')
+
+    
+
+    
 
 if __name__ == '__main__':
     with app.app_context():
