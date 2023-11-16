@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <audio autoplay loop>
-        <source src="musikbg\musik.mp3" type="audio/mp3">
+  <audio id="bgMusic" autoplay loop>
+        <source src="static/mantap.mp3" type="audio/mpeg">
     </audio>
 
 
@@ -32,8 +32,12 @@
 
   <canvas id="snakeCanvas" width="400" height="400"></canvas>
   
-
+  <button id="musicControl">
+    <img id="musicIcon" src="imge/on.png" alt="Speaker Icon">
+ </button>
+ 
   <script>
+
     document.addEventListener("DOMContentLoaded", function () {
       const canvas = document.getElementById("snakeCanvas");
       const ctx = canvas.getContext("2d");
@@ -153,6 +157,24 @@
       setInterval(gameLoop, 100);
     });
 
+        // Mendapatkan referensi ke elemen audio dan tombol
+        const bgMusic = document.getElementById("bgMusic");
+        const musicControl = document.getElementById("musicControl");
+        const musicIcon = document.getElementById("musicIcon");
+
+        // Menambahkan event listener untuk tombol
+        musicControl.addEventListener("click", function() {
+            // Memeriksa status audio
+            if (bgMusic.paused) {
+                // Jika sedang dimatikan, nyalakan
+                bgMusic.play();
+                musicIcon.src = "imge/on.png"; // Gambar speaker yang aktif
+            } else {
+                // Jika sedang menyala, matikan
+                bgMusic.pause();
+                musicIcon.src = "imge/off.png"; // Gambar speaker yang dimatikan
+            }
+        });
   </script>
 <br>
 <br>

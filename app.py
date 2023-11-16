@@ -15,6 +15,7 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
 
 
+
 @app.route('/')
 def home():
     return render_template('login.html')
@@ -22,6 +23,11 @@ def home():
 @app.route('/play_snake')
 def play_snake():
     return render_template('snake.html')
+
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory('Web form login/static', filename)
+
 
 @app.route('/login', methods=['POST'])
 def login():
