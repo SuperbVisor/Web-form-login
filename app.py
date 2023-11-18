@@ -17,21 +17,10 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
-@app.route('/dashbor')
-def dashbor():
-    return render_template('dash.html')
 
 @app.route('/setting')
 def setting():
     return render_template('sett.html')
-
-@app.route('/Home')
-def Home():
-    return render_template('home.html')
-
-@app.route('/Login')
-def logout():
-    return render_template('login.html')  # Redirect ke halaman login setelah logout
 
 @app.route('/')
 def home():
