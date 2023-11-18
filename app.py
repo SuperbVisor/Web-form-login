@@ -3,13 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 
+
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Ganti 'your_secret_key' dengan secret key yang kuat
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-login_manager = LoginManager(app)
-login_manager.login_view = 'home'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,16 +18,19 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
 
 @app.route('/setting')
-@login_required
 def setting():
     return render_template('sett.html')
+
+
+@app.route('/Login')
+def logout():
+    return render_template('login.html')  # Redirect ke halaman login setelah logout
 
 @app.route('/')
 def home():
     return render_template('login.html')
 
-@app.route('/dashboard')
-@login_required
+@app.route('/dashbord')
 def dashbord():
     return render_template('dash.html')
 
@@ -48,13 +51,13 @@ def login():
     else:
         flash('Username atau password salah')
         return redirect(url_for('home'))  # Pengguna tetap di halaman login jika kredensial salah
+   
+
+
 
 @app.route('/user_home')
 def user_home():
-    if current_user.is_authenticated:
-        return render_template('home.html')
-    else:
-        return redirect(url_for('home'))
+    return render_template('home.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -75,6 +78,9 @@ def register():
             return redirect(url_for('home'))  # Mengarahkan ke halaman login setelah pendaftaran berhasil
 
     return render_template('register.html')
+
+    
+
     
 
 if __name__ == '__main__':
