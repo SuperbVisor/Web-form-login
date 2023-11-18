@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
+
 
 
 app = Flask(__name__)
@@ -14,15 +17,29 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
+@app.route('/dashbor')
+def dashbor():
+    return render_template('dash.html')
 
+@app.route('/setting')
+def setting():
+    return render_template('sett.html')
+
+@app.route('/Home')
+def Home():
+    return render_template('home.html')
+
+@app.route('/Login')
+def logout():
+    return render_template('login.html')  # Redirect ke halaman login setelah logout
 
 @app.route('/')
 def home():
     return render_template('login.html')
 
-@app.route('/play_snake')
-def play_snake():
-    return render_template('snake.html')
+@app.route('/dashbord')
+def dashbord():
+    return render_template('dash.html')
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
@@ -41,6 +58,8 @@ def login():
     else:
         flash('Username atau password salah')
         return redirect(url_for('home'))  # Pengguna tetap di halaman login jika kredensial salah
+   
+
 
 
 @app.route('/user_home')
