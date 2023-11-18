@@ -22,10 +22,6 @@ def setting():
     return render_template('sett.html')
 
 
-@app.route('/Login')
-def logout():
-    return render_template('login.html')  # Redirect ke halaman login setelah logout
-
 @app.route('/')
 def home():
     return render_template('login.html')
