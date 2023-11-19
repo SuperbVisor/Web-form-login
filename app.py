@@ -21,7 +21,10 @@ class User(db.Model):
 def setting():
     return render_template('sett.html')
 
-
+@app.route('/profil')
+def profile():
+    return render_template('profile.html')
+    
 @app.route('/')
 def home():
     return render_template('login.html')
