@@ -3,17 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard</title>
+  <link rel="icon" href="/static/STAR.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #f8f9fa;
+      padding-bottom: 60px;
+      
     }
     header {
-      background-color: #333;
+      background-color: #343a40;
       color: white;
       padding: 20px;
       text-align: center;
+      transition: all 0.3s ease;
     }
     nav {
       background-color: #f2f2f2;
@@ -21,8 +29,12 @@
       height: 100vh;
       position: fixed;
       top: 0;
-      left: 0;
+      left: -200px;
       padding-top: 60px;
+      transition: all 0.3s ease;
+    }
+    nav.opened {
+      left: 0;
     }
     nav ul {
       list-style: none;
@@ -30,17 +42,22 @@
     }
     nav li {
       padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li:hover {
+      background-color: #ddd;
     }
     section {
-      margin-left: 220px;
+      margin-left: 20px;
       padding: 20px;
+      transition: all 0.3s ease;
     }
     .welcome {
       text-align: center;
       margin-top: 40px;
     }
     footer {
-      background-color: #333;
+      background-color: #343a40;
       color: #fff;
       text-align: center;
       padding: 1em;
@@ -48,28 +65,157 @@
       bottom: 0;
       width: 100%;
     }
+    footer p {
+      margin: 0;
+    }
+    .fa-bars {
+      cursor: pointer;
+    }
+    /* Style untuk link */
+    a {
+      text-decoration: none;
+      color: rgb(82, 18, 185);
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    nav ul li a i {
+      margin-right: 10px; 
+    }
+    canvas {
+      max-width: 100%;
+    }
+    .chart-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .chart-box {
+      width: 400px;
+      height: 300px;
+      border-radius: 8px;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-left: 200px;
+      margin-bottom: 100px;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      margin-left: 50px;
+      margin-top: auto;
+      border-radius: 50%;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Dashboard</h1>
+    <i class="fas fa-bars" onclick="toggleNav()"></i>
   </header>
   <nav>
+    <img src="/static/pdi.png" alt="Profile Logo">
+    <h3 style="margin-left: 50px;">Your name</h3>
     <ul>
-      <li><a href="/user_home">Home</a></li>
-      <li><a href="/profil">Profile</a></li>
-      <li><a href="/setting">Settings</a></li>
-      <li><a href="/">Logout</a></li>
+      <li><a href="/user_home"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="/profil"><i class="fas fa-user"></i>Profile</a></li>
+      <li><a href="/setting"><i class="fas fa-cog"></i>Settings</a></li>
+      <li><a href="/to"><i class="fas fa-check"></i>To do list</a></li>
+      <li><a href="/"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
     </ul>
   </nav>
   <section>
     <div class="welcome">
       <h2>Welcome to the Dashboard!</h2>
-      <p>Disini kita ingin isi dashboard kita dengan fitur yang sama seperti dashboard Amikom.</p>
+      <p>This your Activity</p>
     </div>
   </section>
+  <div class="chart-container">
+    <div class="chart-box">
+      <h4><i class="fas fa-tasks"></i> Tugas</h4>
+      <canvas id="doughnutChart" width="20" height="10"></canvas>
+    </div>
+
+    <!-- Kotak untuk grafik bar -->
+    <div class="chart-box">
+      <h4><i class="fas fa-user-check"></i> Absensi</h4>
+      <canvas id="barChart" width="400" height="200"></canvas>
+    </div>
+  </div>
   <footer>
     <p>&copy; 2023. Copyright | 22.83.0781 | 22.83.0791 | 22.83.0808 | 22.83.0796.</p>
   </footer>
+
+  <script>
+    function toggleNav() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('opened');
+    }
+
+    // Data untuk grafik lingkaran (doughnut chart)
+    const doughnutData = {
+      labels: ['SPJ', 'Jarkom', 'OS', 'Web', 'Python'],
+      datasets: [{
+        data: [10, 30, 20, 20, 20],
+        backgroundColor: ['orange', 'blue', 'gray', 'purple', 'green']
+      }]
+    };
+
+    // Konfigurasi untuk grafik lingkaran
+    const doughnutConfig = {
+      type: 'doughnut',
+      data: doughnutData,
+      options: {}
+    };
+
+    // Data untuk grafik bar
+    const barData = {
+      labels: ['January', 'February', 'March', 'April', 'May'],
+      datasets: [{
+        label: 'Absensi Kelas',
+        data: [12, 19, 10, 15, 20],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // Konfigurasi untuk grafik bar
+    const barConfig = {
+      type: 'bar',
+      data: barData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // Membuat grafik lingkaran
+    var doughnutChart = new Chart(
+      document.getElementById('doughnutChart'),
+      doughnutConfig
+    );
+
+    // Membuat grafik bar
+    var barChart = new Chart(
+      document.getElementById('barChart'),
+      barConfig
+    );
+  </script>
 </body>
 </html>

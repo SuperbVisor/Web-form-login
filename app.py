@@ -17,6 +17,10 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
+@app.route('/to')
+def to():
+    return render_template('todo.html')
+
 @app.route('/setting')
 def setting():
     return render_template('sett.html')

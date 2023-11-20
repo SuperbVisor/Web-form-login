@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="STAR.png">
+    <link rel="icon" href="static/STAR.png">
     <title>Register</title>
     <style>
         body {
@@ -11,6 +11,12 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease;
+            background-image: url(" static/welow.jpg ");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            overflow: hidden; 
         }
 
         .conta {
@@ -20,10 +26,17 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi saat hover */
+        }
+
+        .conta:hover {
+            transform: translateY(-5px); /* Angkat sedikit saat dihover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Efek bayangan saat dihover */
         }
 
         h1 {
             color: #333;
+            text-align: center;
         }
 
         label {
@@ -39,6 +52,11 @@
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 4px;
+            transition: border-color 0.3s ease; /* Animasi saat input difokuskan */
+        }
+
+        input:focus {
+            border-color: #007bff; /* Ubah warna border saat input difokuskan */
         }
 
         button {
@@ -48,16 +66,18 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s ease; /* Animasi saat hover pada tombol */
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Ubah warna saat tombol dihover */
         }
 
         p {
             margin-top: 15px;
             font-size: 14px;
             color: #555;
+            text-align: center;
         }
 
         a {
@@ -76,17 +96,11 @@
             <form method="POST">
                 <h1>REGISTER</h1>
                 <label for="username">Username</label>
-                <br>
                 <input type="text" id="username" name="username" required>
-                <br>
                 <label for="email">Email</label>
-                <br>
                 <input type="email" id="email" name="email" required>
-                <br>
                 <label for="password">Password</label>
-                <br>
                 <input type="password" id="password" name="password" required>
-                <br>
                 <button type="submit">REGISTER</button>
             </form>
             <!-- Tautan ke halaman login -->
@@ -96,5 +110,16 @@
     <center>
         <p style="font-size: 14px; font-family: Cambria;">22.83.0797 | 22.83.0781 | 22.83.0808 | 22.83.0896</p>
     </center>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const conta = document.getElementById('conta');
+            conta.style.opacity = 0;
+
+            setTimeout(function() {
+                conta.style.transition = 'opacity 0.5s ease';
+                conta.style.opacity = 1;
+            }, 100);
+        });
+    </script>
 </body>
 </html>

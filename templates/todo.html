@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List with Sidebar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      overflow-x: hidden; 
+      background-image: url(" static/welow.jpg ");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            overflow: hidden; 
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #333;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      z-index: 1;
+    }
+
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #fff;
+      display: block;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+    }
+
+    .sidebar a:hover {
+      background-color: #555;
+    }
+
+    .sidebar .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 30px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      color: #3498db;
+    }
+
+    #taskInput {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      margin-bottom: 5px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      border-left: 4px solid #3498db;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideIn 0.3s ease-in-out;
+    }
+
+    li button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    li button:hover {
+      background-color: #c0392b;
+    }
+
+    .finished {
+      color: #2ecc71;
+      cursor: pointer;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+  <a href="/dashbord"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="/user_home"><i class="fas fa-info-circle"></i> About</a>
+  <a href="/profil"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+<div class="container">
+  <h1>To-Do List</h1>
+  <div style="position: relative;">
+    <span style="font-size:30px;cursor:pointer;color:#3498db" onclick="openSidebar()">&#9776;</span>
+    <input type="text" id="taskInput" placeholder="Add a new task...">
+  </div>
+  <ul id="taskList">
+    <!-- Tasks will be added dynamically here -->
+  </ul>
+</div>
+
+<script>
+  const taskInput = document.getElementById('taskInput');
+  const taskList = document.getElementById('taskList');
+
+  taskInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter' && this.value.trim() !== '') {
+      addTask(this.value.trim());
+      this.value = '';
+    }
+  });
+
+  function addTask(taskText) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span>${taskText}</span>
+      <button onclick="removeTask(this)"><i class="fas fa-trash-alt"></i></button>
+      <button class="finished" onclick="markAsFinished(this)"><i class="fas fa-check"></i> Finished</button>
+    `;
+    taskList.appendChild(li);
+  }
+
+  function removeTask(element) {
+    element.parentElement.remove();
+  }
+
+  function markAsFinished(element) {
+    const taskText = element.parentElement.querySelector('span');
+    taskText.style.textDecoration = 'line-through';
+    element.style.display = 'none';
+  }
+
+  function openSidebar() {
+    document.getElementById('sidebar').style.width = '250px';
+  }
+
+  function closeSidebar() {
+    document.getElementById('sidebar').style.width = '0';
+  }
+  // Simpan to-do list ke LocalStorage
+function saveToLocalStorage() {
+  const tasks = document.querySelectorAll('#taskList li span');
+  const taskArray = Array.from(tasks).map(task => task.textContent);
+  localStorage.setItem('tasks', JSON.stringify(taskArray));
+}
+
+// Ambil to-do list dari LocalStorage saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+  const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+  if (savedTasks) {
+    savedTasks.forEach(taskText => addTask(taskText));
+  }
+});
+
+// Tambahkan to-do ke list dan simpan ke LocalStorage
+function addTask(taskText) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <span>${taskText}</span>
+    <button onclick="removeTask(this)"><i class="fas fa-trash-alt"></i></button>
+    <button class="finished" onclick="markAsFinished(this)"><i class="fas fa-check"></i> Finished</button>
+  `;
+  taskList.appendChild(li);
+  saveToLocalStorage(); // Simpan ke LocalStorage setiap kali ditambahkan
+}
+
+// Fungsi lain (removeTask, markAsFinished, dll) tetap sama seperti sebelumnya
+
+</script>
+
+</body>
+</html>

@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="icon" href="imge/STAR.png">
+    <link rel="icon" href="static/STAR.png">
     <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            transition: background-color 0.3s ease; 
+            background-image: url(" static/welow.jpg ");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            overflow: hidden; 
         }
         .container {
             width: 300px;
@@ -15,6 +21,11 @@
             border-radius: 5px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .container:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
         }
         h1 {
             text-align: center;
@@ -28,6 +39,10 @@
             padding: 5px;
             border-radius: 3px;
             border: 1px solid #ccc;
+            transition: border-color 0.3s ease; 
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #007bff; 
         }
         button {
             width: 100%;
@@ -38,9 +53,10 @@
             background-color: #007bff;
             color: #fff;
             cursor: pointer;
+            transition: background-color 0.3s ease; 
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; 
         }
         p {
             margin-top: 10px;
@@ -68,5 +84,16 @@
         </form>
     </div>
     <p style="font-size: 14px; font-family: Cambria; text-align: center;">22.83.0797 | 22.83.0781 | 22.83.0808 | 22.83.0896</p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('container');
+            container.style.opacity = 0;
+
+            setTimeout(function() {
+                container.style.transition = 'opacity 0.5s ease';
+                container.style.opacity = 1;
+            }, 100);
+        });
+    </script>
 </body>
 </html>
