@@ -1,155 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>User Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="icon" href="static/STAR.PNG">
+  <meta charset="UTF-8">
+  <title>Hello User</title>
+  <link rel="icon" href="/static/STAR.png">
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-image: url("static/welow.jpg");
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .header-section {
-      background-color: rgba(24, 82, 144, 0.8);
-      color: #fff;
-      padding: 50px 0;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-    }
-    .content-section {
-      padding: 50px 0;
-    }
-    .member-card {
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .member-card h3 {
-      color: #18599e;
-      font-size: 1.5em;
-    }
-    .btn-dashboard {
-      margin-top: 20px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    /* Sidebar CSS */
-    .sidebar {
-      height: 100%;
-      width: 250px;
-      position: fixed;
-      top: 0;
-      left: -250px;
-      background-color: #333;
-      transition: 0.5s;
-      padding-top: 60px;
-      z-index: 1;
-    }
-    .sidebar a {
-      padding: 10px 15px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      display: block;
-      transition: 0.3s;
-    }
-    .sidebar a:hover {
-      background-color: #555;
-    }
+    body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  text-align: center;
+}
+
+.greeting {
+  font-size: 2em;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite, fadeIn 2s forwards;
+  opacity: 0;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animated-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.animated-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.1);
+}
+
+
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1 class="greeting">Hello, User!</h1>
+    <div class="loader"></div>
+    <a href="/dashbord" class="animated-button">Go to Dashboard</a>
 
-  <div class="sidebar" id="sidebar">
-    <a href="#" onclick="closeSidebar()">&times;</a>
-    <a href="/user_home">About us</a>
-    <a href="/dashbord">Dashboard</a>
-    <a href="/setting">Settings</a>
   </div>
-
-<div class="header-section">
-  <h1>KELOMPOK PYHON Dan P WEB</h1>
-  <p>22 TEKNIK KOMPUTER 1</p> 
-  <span style="font-size:30px;cursor:pointer;color:#fff" onclick="openSidebar()">&#9776; </span>
-</div>
-
-<div class="container">
-  <div class="content-section">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="member-card">
-          <h3>Anggota 1</h3>
-          <p>RIZQY MUHAMMAD RAIHAN</p>
-          <p>22.83.0797 Tugas = konsumsi</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="member-card">
-          <h3>Anggota 2</h3>
-          <p>EGAR ATHWAL MAHALI</p>
-          <p>22.83.0781 Tugas = Codingan</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="member-card">
-          <h3>Anggota 3</h3>        
-          <p>FAYI SUBHI TAUFIQURRAHMAN</p>
-          <p>22.83.0808 Tugas = MEMBUAT KONSEP</p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="member-card">
-          <h3>Anggota 4</h3>        
-          <p>AHMAD SRI BINTANG</p>
-          <p>22.83.0796 Tugas = Referensi dan Laporan</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  function openSidebar() {
-    document.getElementById('sidebar').style.left = '0';
-  }
-
-  function closeSidebar() {
-    document.getElementById('sidebar').style.left = '-250px';
-  }
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Fade in body
-    document.body.style.opacity = 1;
-
-    // Get all elements with the class 'member-card' and 'btn-dashboard'
-    const memberCards = document.querySelectorAll('.member-card');
-    const btnDashboard = document.querySelector('.btn-dashboard');
-
-    // Loop through each member card and apply fadeIn effect
-    memberCards.forEach(function(card) {
-      card.style.opacity = 1;
-    });
-
-    // Apply fadeIn effect to the 'btn-dashboard'
-    btnDashboard.style.opacity = 1;
-  });
-</script>
-
 </body>
 </html>

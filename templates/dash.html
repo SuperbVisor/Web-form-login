@@ -19,7 +19,7 @@
     header {
       background-color: #343a40;
       color: white;
-      padding: 20px;
+      padding: 5px;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -53,8 +53,8 @@
       transition: all 0.3s ease;
     }
     .welcome {
-      text-align: center;
       margin-top: 40px;
+      display: flex;
     }
     footer {
       background-color: #343a40;
@@ -92,12 +92,27 @@
 
     .chart-box {
       width: 400px;
-      height: 300px;
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 30px;
       box-sizing: border-box;
-      margin-left: 200px;
-      margin-bottom: 100px;
+      margin-top: 50px;
+      margin-bottom: 35px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .chart-bex{
+      margin-bottom: 150px;
+      border-radius: 10px;
+      padding: 20px;
+      margin-left: 50px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .chart-bix{
+      margin-bottom: 150px;
+      border-radius: 10px;
+      padding: 20px;
+      margin-left: 50px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: grid;
     }
     img {
       width: 100px;
@@ -106,6 +121,42 @@
       margin-top: auto;
       border-radius: 50%;
     }
+    .box{
+      display: flex;
+    }
+    .box1{
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 10px;
+      margin-right: 50px;
+      background-color: rgb(49, 183, 220);
+      font-family: monospace ;
+      font-size: 20px;
+    }
+    .box2{
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 10px;
+      font-family: monospace ;
+      font-size: 20px;
+      background-color:rgb(211, 232, 200) ;
+    }
+    .box3{
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 10px;
+      font-family: monospace ;
+      font-size: 20px;
+      background-color:rgb(20, 89, 200) ;
+      margin-left: 50px;
+    }
+    
   </style>
 </head>
 <body>
@@ -118,6 +169,7 @@
     <h3 style="margin-left: 50px;">Your name</h3>
     <ul>
       <li><a href="/user_home"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="/dashbord"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
       <li><a href="/profil"><i class="fas fa-user"></i>Profile</a></li>
       <li><a href="/setting"><i class="fas fa-cog"></i>Settings</a></li>
       <li><a href="/to"><i class="fas fa-check"></i>To do list</a></li>
@@ -126,31 +178,54 @@
   </nav>
   <section>
     <div class="welcome">
-      <h2>Welcome to the Dashboard!</h2>
       <p>This your Activity</p>
     </div>
-  </section>
-  <div class="chart-container">
-    <div class="chart-box">
-      <h4><i class="fas fa-tasks"></i> Tugas</h4>
-      <canvas id="doughnutChart" width="20" height="10"></canvas>
+    <div class="box">
+      <div class="box1">
+        <h3><i class="fas fa-id-card" style="margin-right: 10px;"></i>Preview</h3>
+        <p>Anda telah mengerjakan tugas dengan rajin</p>
+      </div>
+      <div class="box2">
+        <h3><li class="fas fa-hashtag" style="margin-right: 10px;"></li>Motivation</h3>
+        <p>#kegagalan adalah kunci kesuksesan</p>
+      </div>
+      <div class="box3">
+        <h3><li class="fas fa-chair" style="margin-right: 10px;"></li>Kehadiran</h3>
+        <p>Beberapa matakuliah tidak mengikuti </p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-box">
+        <h4><i class="fas fa-tasks"></i> Tugas</h4>
+        <canvas id="doughnutChart" width="20" height="10"></canvas>
+      </div>
+      <div class="chart-bex">
+        <h4 style="font-size: 15px;"><i class="fas fa-user-check"></i> Absensi</h4>
+        <canvas id="barChart" width="400" height="200"></canvas>
+      </div>
+          <div class="chart-bix">
+      <h4 style="font-size: 15px;"><i class="fas fa-chart-line"></i> Perkembangan</h4>
+      <canvas id="areaChart" width="200px" height="100px"></canvas>
+    </div>
     </div>
 
-    <!-- Kotak untuk grafik bar -->
-    <div class="chart-box">
-      <h4><i class="fas fa-user-check"></i> Absensi</h4>
-      <canvas id="barChart" width="400" height="200"></canvas>
-    </div>
-  </div>
+  </section>
   <footer>
     <p>&copy; 2023. Copyright | 22.83.0781 | 22.83.0791 | 22.83.0808 | 22.83.0796.</p>
   </footer>
 
   <script>
     function toggleNav() {
-      const nav = document.querySelector('nav');
-      nav.classList.toggle('opened');
-    }
+  const nav = document.querySelector('nav');
+  nav.classList.toggle('opened');
+
+  const content = document.querySelector('section');
+  if (nav.classList.contains('opened')) {
+    content.style.marginLeft = '200px'; // Sesuaikan nilai margin yang diinginkan saat sidebar dibuka
+  } else {
+    content.style.marginLeft = '20px'; // Sesuaikan nilai margin asli saat sidebar tertutup
+  }
+}
 
     // Data untuk grafik lingkaran (doughnut chart)
     const doughnutData = {
@@ -217,5 +292,38 @@
       barConfig
     );
   </script>
+  <script>
+    // Ambil referensi ke elemen canvas
+    var ctx = document.getElementById('areaChart').getContext('2d');
+  
+    // Data yang akan digunakan dalam chart
+    var data = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        label: 'Sample Data',
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Warna area
+        borderColor: 'rgba(54, 162, 235, 1)', // Warna garis tepi area
+        borderWidth: 1
+      }]
+    };
+  
+    // Konfigurasi chart
+    var options = {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+  
+    // Buat area chart
+    var myChart = new Chart(ctx, {
+      type: 'line', // Tipe chart: 'line' untuk area chart
+      data: data,
+      options: options
+    });
+  </script>
+  
 </body>
 </html>

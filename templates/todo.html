@@ -140,15 +140,34 @@
         opacity: 1;
       }
     }
+    img {
+      width: 100px;
+      height: 100px;
+      margin-left: 50px;
+      margin-top: auto;
+      border-radius: 50%;
+      border: #f4f4f4 solid;
+    }
+    h3 {
+      margin-left: 50px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f9f9f9;
+    }
   </style>
 </head>
 <body>
 
 <div class="sidebar" id="sidebar">
+  <img src="/static/pdi.png" alt="Profile Logo">
+  <h3>Your Name</h3>
   <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+  <a href="/user_home"><i class="fas fa-home"></i> Home</a>
   <a href="/dashbord"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-  <a href="/user_home"><i class="fas fa-info-circle"></i> About</a>
-  <a href="/profil"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="/profil"><i class="fas fa-user-alt"></i> Profile</a>
+  <a href="/sett"><i class="fas fa-cogs"></i> Setting</a>
+  <a href="/to"><i class="fas fa-check-circle"></i> To do list</a>
+  <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  
 </div>
 
 <div class="container">
