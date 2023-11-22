@@ -53,7 +53,6 @@
       transition: all 0.3s ease;
     }
     .welcome {
-      margin-top: 40px;
       display: flex;
     }
     footer {
@@ -107,12 +106,11 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .chart-bix{
-      margin-bottom: 150px;
+      margin-bottom: 25px;
       border-radius: 10px;
-      padding: 20px;
+      padding: 10px;
       margin-left: 50px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      display: grid;
     }
     img {
       width: 100px;
@@ -156,7 +154,55 @@
       background-color:rgb(20, 89, 200) ;
       margin-left: 50px;
     }
-    
+    /* Styling the table */
+#datatablesSimple {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Styling the table header */
+#datatablesSimple th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Styling the table rows */
+#datatablesSimple td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* Styling alternate rows */
+#datatablesSimple tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Styling the card containing the table */
+.card1 {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-right: 300px;
+  padding-right: 35px;
+}
+
+.card2 {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.card3 {
+  margin-top: 20px;
+}
+
   </style>
 </head>
 <body>
@@ -196,18 +242,78 @@
     </div>
     <div class="chart-container">
       <div class="chart-box">
+        <div class="chart1">
         <h4><i class="fas fa-tasks"></i> Tugas</h4>
+        </div>
         <canvas id="doughnutChart" width="20" height="10"></canvas>
       </div>
       <div class="chart-bex">
+        <div class="chart2">
         <h4 style="font-size: 15px;"><i class="fas fa-user-check"></i> Absensi</h4>
+      </div>
         <canvas id="barChart" width="400" height="200"></canvas>
       </div>
-          <div class="chart-bix">
+    <div class="chart-bix">
+      <div class="chart3">
       <h4 style="font-size: 15px;"><i class="fas fa-chart-line"></i> Perkembangan</h4>
-      <canvas id="areaChart" width="200px" height="100px"></canvas>
+    </div>
+      <canvas id="areaChart" width="150px" height="350px"></canvas>
     </div>
     </div>
+    <div class="card1">
+      <div class="card2">
+          <i class="fas fa-table me-1"></i>
+          DataTable Example
+      </div>
+      <div class="card3">
+          <table id="datatablesSimple">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>NIM</th>
+                      <th>Position</th>
+                      <th>Age</th>
+                      <th>Campus</th>
+                      <th>Email</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>EGAR AHWAL MAHALI</td>
+                      <td>22.83.0781</td>
+                      <td>Code Mastery</td>
+                      <td>19</td>
+                      <td>Amikom</td>
+                      <td>egar@gmail.com</td>
+                  </tr>
+                  <tr>
+                      <td>RIZQY MUHAMMAD RAIHAN</td>
+                      <td>22.83.0797</td>
+                      <td>Consumsition</td>
+                      <td>19</td>
+                      <td>Amikom</td>
+                      <td>rian@gmail.com</td>
+                  </tr>
+                  <tr>
+                      <td>FAYI SUBHI TAUFIQURRAHMAN</td>
+                      <td>22.83.0808</td>
+                      <td>Create Method</td>
+                      <td>20</td>
+                      <td>Amikom</td>
+                      <td>fayi@gmail.com</td>
+                  </tr>
+                  <tr>
+                      <td>AHMAD SRI BINTANG</td>
+                      <td>22.83.0796</td>
+                      <td>Referen and Task</td>
+                      <td>21</td>
+                      <td>Amikom</td>
+                      <td>sri@gmail.com</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+   </div>
 
   </section>
   <footer>
@@ -300,8 +406,8 @@
     var data = {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
       datasets: [{
-        label: 'Sample Data',
-        data: [12, 19, 3, 5, 2],
+        label: 'Up to Down',
+        data: [20, 16, 3, 7, 4],
         backgroundColor: 'rgba(54, 162, 235, 0.2)', // Warna area
         borderColor: 'rgba(54, 162, 235, 1)', // Warna garis tepi area
         borderWidth: 1
