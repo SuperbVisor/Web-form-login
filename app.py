@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 
 
 
@@ -9,33 +9,46 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Ganti 'your_secret_key' dengan secret key yang kuat
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'user_home'  # 'home' adalah nama fungsi view untuk halaman login
 
-
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
+    def is_active(self):
+        return True 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/to')
 def to():
-    return render_template('todo.html')
+    username = current_user.username if current_user.is_authenticated else "Guest"
+    return render_template('todo.html', username=username)
 
 @app.route('/setting')
 def setting():
-    return render_template('sett.html')
+    username = current_user.username if current_user.is_authenticated else "Guest"
+    return render_template('sett.html', username=username)
 
 @app.route('/profil')
 def profile():
-    return render_template('profile.html')
+    username = current_user.username if current_user.is_authenticated else "Guest"
+    return render_template('profile.html', username=username)
     
 @app.route('/')
 def home():
     return render_template('login.html')
 
 @app.route('/dashbord')
+@login_required
 def dashbord():
-    return render_template('dash.html')
+    username = current_user.username if current_user.is_authenticated else "Guest"
+    return render_template('dash.html', username=username)
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
@@ -49,7 +62,8 @@ def login():
 
     user = User.query.filter_by(username=username, password=password).first()
 
-    if user:
+    if user and user.password == password:  # Memeriksa kredensial pengguna
+        login_user(user)  # Login pengguna menggunakan Flask-Login
         return redirect(url_for('user_home'))  # Pengguna diarahkan ke halaman home jika kredensial benar
     else:
         flash('Username atau password salah')
@@ -59,8 +73,13 @@ def login():
 
 
 @app.route('/user_home')
+@login_required  # Mengharuskan pengguna untuk login sebelum masuk ke halaman ini
 def user_home():
-    return render_template('home.html')
+    if current_user.is_authenticated:
+        username = current_user.username
+        return render_template('home.html', username=username)
+    else:
+        return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
