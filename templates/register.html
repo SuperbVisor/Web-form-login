@@ -107,6 +107,15 @@
             <p>Sudah memiliki akun? <a href="{{ url_for('home') }}">Login disini</a></p>
         </div>
     </center>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <center>
         <p style="font-size: 14px; font-family: Cambria;">22.83.0797 | 22.83.0781 | 22.83.0808 | 22.83.0896</p>
     </center>

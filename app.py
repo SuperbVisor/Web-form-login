@@ -88,19 +88,20 @@ def register():
         email = request.form['email']
         password = request.form['password']
 
-        existing_user = User.query.filter_by(username=username).first()
+        existing_user = User.query.filter_by(email=email).first()
 
         if existing_user:
-            flash('Username sudah digunakan')
+            # Jika email sudah ada, tampilkan pesan error
+            flash('Email sudah digunakan')
         else:
+            # Jika email belum ada, tambahkan user baru ke database
             new_user = User(username=username, email=email, password=password)
             db.session.add(new_user)
             db.session.commit()
             flash('Akun berhasil dibuat')
-            return redirect(url_for('home'))  # Mengarahkan ke halaman login setelah pendaftaran berhasil
+            return redirect(url_for('home'))
 
     return render_template('register.html')
-
     
 
     
