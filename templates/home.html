@@ -60,12 +60,20 @@
   background-color: #2980b9;
   transform: scale(1.1);
 }
-
+img {
+      width: 100px;
+      height: 100px;
+      margin-left: 50px;
+      margin-top: auto;
+      border-radius: 50%;
+      margin-right: 50px;
+    }
 
   </style>
 </head>
 <body>
   <div class="container">
+    <img src="/static/pdi.png" alt="Profile Logo">
     <h1 class="greeting">Hello, {{username}}</h1>
     <div class="loader"></div>
     <a href="/dashbord" class="animated-button">Go to Dashboard</a>
