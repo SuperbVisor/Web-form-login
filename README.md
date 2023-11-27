@@ -7,6 +7,6 @@ Disni saya ingin membuat web server menggunakan Nginx dan juga Python Flask.
 
 Tahap
 
-1. instal Nginx
+1. Pembuatan web server
 2. instal Python Flask
-3. Hosting python Flask ke Nginx
+3. Hosting python Flask ke domain
