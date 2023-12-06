@@ -162,10 +162,10 @@
   <img src="/static/pdi.png" alt="Profile Logo">
   <h3>{{username}}</h3>
   <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
-  <a href="/user_home"><i class="fas fa-home"></i> Home</a>
+  <!--<li><a href="/user_home"><i class="fas fa-home"></i>Home</a></li>-->
   <a href="/dashbord"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
   <a href="/profil"><i class="fas fa-user-alt"></i> Profile</a>
-  <a href="/sett"><i class="fas fa-cogs"></i> Setting</a>
+  <a href="/setting"><i class="fas fa-cogs"></i> Setting</a>
   <a href="/to"><i class="fas fa-check-circle"></i> To do list</a>
   <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
   
@@ -182,9 +182,12 @@
   </ul>
 </div>
 <p style="font-size: 14px; font-family: Cambria; text-align: center;">22.83.0797 | 22.83.0781 | 22.83.0808 | 22.83.0896</p>
+<!-- ... (your existing HTML) ... -->
+
 <script>
   const taskInput = document.getElementById('taskInput');
   const taskList = document.getElementById('taskList');
+  let tasks = []; // Array to store tasks
 
   taskInput.addEventListener('keypress', function(event) {
     if (event.key === 'Enter' && this.value.trim() !== '') {
@@ -193,24 +196,41 @@
     }
   });
 
+  function renderTasks() {
+    // Clear the existing tasks
+    taskList.innerHTML = '';
+
+    // Render tasks based on the array
+    tasks.forEach(taskText => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span>${taskText}</span>
+        <button onclick="removeTask('${taskText}')"><i class="fas fa-trash-alt"></i></button>
+        <button class="finished" onclick="markAsFinished('${taskText}')"><i class="fas fa-check"></i> Finished</button>
+      `;
+      taskList.appendChild(li);
+    });
+  }
+
   function addTask(taskText) {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <span>${taskText}</span>
-      <button onclick="removeTask(this)"><i class="fas fa-trash-alt"></i></button>
-      <button class="finished" onclick="markAsFinished(this)"><i class="fas fa-check"></i> Finished</button>
-    `;
-    taskList.appendChild(li);
+    tasks.push(taskText);
+    renderTasks();
+    saveToLocalStorage();
   }
 
-  function removeTask(element) {
-    element.parentElement.remove();
+  function removeTask(taskText) {
+    tasks = tasks.filter(task => task !== taskText);
+    renderTasks();
+    saveToLocalStorage();
   }
 
-  function markAsFinished(element) {
-    const taskText = element.parentElement.querySelector('span');
-    taskText.style.textDecoration = 'line-through';
-    element.style.display = 'none';
+  function markAsFinished(taskText) {
+    const index = tasks.indexOf(taskText);
+    if (index !== -1) {
+      tasks[index] = `<s>${taskText}</s>`;
+      renderTasks();
+      saveToLocalStorage();
+    }
   }
 
   function openSidebar() {
@@ -220,36 +240,22 @@
   function closeSidebar() {
     document.getElementById('sidebar').style.width = '0';
   }
-  // Simpan to-do list ke LocalStorage
-function saveToLocalStorage() {
-  const tasks = document.querySelectorAll('#taskList li span');
-  const taskArray = Array.from(tasks).map(task => task.textContent);
-  localStorage.setItem('tasks', JSON.stringify(taskArray));
-}
 
-// Ambil to-do list dari LocalStorage saat halaman dimuat
-document.addEventListener('DOMContentLoaded', function() {
-  const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-  if (savedTasks) {
-    savedTasks.forEach(taskText => addTask(taskText));
+  // Load tasks from LocalStorage on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks = savedTasks;
+    renderTasks();
+  });
+
+  // Save tasks to LocalStorage
+  function saveToLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
-});
-
-// Tambahkan to-do ke list dan simpan ke LocalStorage
-function addTask(taskText) {
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <span>${taskText}</span>
-    <button onclick="removeTask(this)"><i class="fas fa-trash-alt"></i></button>
-    <button class="finished" onclick="markAsFinished(this)"><i class="fas fa-check"></i> Finished</button>
-  `;
-  taskList.appendChild(li);
-  saveToLocalStorage(); // Simpan ke LocalStorage setiap kali ditambahkan
-}
-
-// Fungsi lain (removeTask, markAsFinished, dll) tetap sama seperti sebelumnya
-
 </script>
+
+<!-- ... (your existing HTML) ... -->
+
 
 </body>
 </html>
