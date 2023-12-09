@@ -42,7 +42,7 @@ def profile():
     
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return render_template('Login.html')
 
 @app.route('/dashbord')
 @login_required
